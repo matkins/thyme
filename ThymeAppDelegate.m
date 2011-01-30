@@ -122,6 +122,7 @@
     
     [startStopItem setTitle:@"Pause"];
     [resetItem setEnabled:YES];
+	[startNamed setEnabled:NO];
     isTicking = YES;
     
     if (notification)
@@ -231,8 +232,6 @@
 	
 	[nameField setStringValue:@""];
 	[namePanel close];
-	
-	[startNamed setEnabled:NO];
 	
 	[self startWithNotification:NO];
 }
