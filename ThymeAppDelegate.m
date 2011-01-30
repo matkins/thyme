@@ -64,21 +64,19 @@
 
 - (void)setTime
 {
-    
     if (ZERO_TIME && !isTicking)
     {
-        [statusItem setLength:26.0];
         [statusItem setTitle:@""];
         [statusItem setImage:[NSImage imageNamed:@"logo_small.png"]];
     }
     else
-    {
-        if (hours > 0)
-            [statusItem setLength:72.0];
-        else
-            [statusItem setLength:46.0];
-        
-        [statusItem setTitle:[self currentTimerValue]];
+    {	
+		if (nil == name) {
+			[statusItem setTitle:[self currentTimerValue]];
+		} else {
+			[statusItem setTitle:[NSString stringWithFormat:@"%@ %@",name,[self currentTimerValue]]];
+		}
+
         [statusItem setImage:nil];
     }
 
@@ -150,7 +148,7 @@
 {
     hours = minutes = seconds = 0;
 	[name release];
-	name = @"";
+	name = nil;
     
     [self stopWithNotification:NO];
     [resetItem setEnabled:NO];
@@ -307,7 +305,7 @@
     [clearMenuItem release];
 
     NSStatusBar *statusBar = [NSStatusBar systemStatusBar];
-    self.statusItem = [statusBar statusItemWithLength:46.0];
+    self.statusItem = [statusBar statusItemWithLength: NSVariableStatusItemLength];
     [statusItem setHighlightMode:YES];
     [statusItem setMenu:menu];
     
