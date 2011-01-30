@@ -16,9 +16,10 @@
 @property (nonatomic, retain) NSNumber * minutes;
 @property (nonatomic, retain) NSNumber * seconds;
 @property (nonatomic, retain) NSDate * date;
+@property (nonatomic, retain) NSString * name;
 
 + (NSArray*)allSessions;
-+ (Session*)sessionWithSeconds:(NSInteger)_seconds minutes:(NSInteger)_minutes hours:(NSInteger)_hours;
++ (Session*)sessionWithSeconds:(NSInteger)_seconds minutes:(NSInteger)_minutes hours:(NSInteger)_hours name:(NSString*)_name;
 - (NSString*)timeStringRepresentation;
 - (NSString*)stringRepresentation;
 

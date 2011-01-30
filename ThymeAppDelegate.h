@@ -15,6 +15,7 @@
     NSInteger hours;
     NSInteger minutes;
     NSInteger seconds;
+	NSString *name;
     
     // Timer
     Boolean isTicking;
@@ -29,11 +30,15 @@
     NSPersistentStoreCoordinator *persistentStoreCoordinator;
     NSManagedObjectModel *managedObjectModel;
     NSManagedObjectContext *managedObjectContext;
+	
+	NSPanel *namePanel;
+	NSTextField *nameField;
     
     NSStatusItem *statusItem;
     NSMenu *menu;
     NSMenuItem *startStopItem;
     NSMenuItem *resetItem;
+	NSMenuItem *startNamed;
     
     NSMenuItem *sessionsMenuSeparator;
     NSMenuItem *sessionsMenuClearItem;
@@ -50,10 +55,14 @@
 @property(nonatomic, retain, readonly) IBOutlet NSManagedObjectModel *managedObjectModel;
 @property(nonatomic, retain, readonly) IBOutlet NSManagedObjectContext *managedObjectContext;
 
+@property(nonatomic, retain) IBOutlet NSPanel *namePanel;
+@property(nonatomic, retain) IBOutlet NSTextField *nameField;
+
 @property(retain) NSStatusItem *statusItem;
 @property(nonatomic, retain) IBOutlet NSMenu *menu;
 @property(nonatomic, retain) IBOutlet NSMenuItem *startStopItem;
 @property(nonatomic, retain) IBOutlet NSMenuItem *resetItem;
+@property(nonatomic, retain) IBOutlet NSMenuItem *startNamed;
 
 @property(nonatomic, retain) NSMenuItem *sessionsMenuSeparator;
 @property(nonatomic, retain) NSMenuItem *sessionsMenuClearItem;
@@ -62,5 +71,7 @@
 - (IBAction)saveAction:sender;
 - (IBAction)startStop:(id)sender;
 - (IBAction)reset:(id)sender;
+- (IBAction)startNamed:(id)sender;
+- (IBAction)showNamePanel:(id)sender;
 
 @end

@@ -21,6 +21,7 @@
 @dynamic minutes;
 @dynamic seconds;
 @dynamic date;
+@dynamic name;
 
 - (NSString*)formatDate
 {
@@ -45,7 +46,7 @@
     return result;
 }
 
-+ (Session*)sessionWithSeconds:(NSInteger)_seconds minutes:(NSInteger)_minutes hours:(NSInteger)_hours
++ (Session*)sessionWithSeconds:(NSInteger)_seconds minutes:(NSInteger)_minutes hours:(NSInteger)_hours name:(NSString*)_name
 {
     Session* session = (Session*) [NSEntityDescription insertNewObjectForEntityForName:@"Session" 
                                                      inManagedObjectContext:AppDelegate.managedObjectContext];
@@ -54,6 +55,7 @@
     session.minutes = [NSNumber numberWithInt:_minutes];
     session.seconds = [NSNumber numberWithInt:_seconds];
     session.date = [NSDate date];
+	session.name = [_name copy];
     
     return session;
 }
@@ -68,7 +70,11 @@
 
 - (NSString*)stringRepresentation
 {
-    return [NSString stringWithFormat:@"%@ - %@", [self timeStringRepresentation], [self formatDate]];
+	if (self.name == nil) {
+		return [NSString stringWithFormat:@"%@ - %@", [self timeStringRepresentation], [self formatDate]];
+	} else {
+		return [NSString stringWithFormat:@"%@: %@ - %@", self.name, [self timeStringRepresentation], [self formatDate]];		
+	}
 }
 
 @end

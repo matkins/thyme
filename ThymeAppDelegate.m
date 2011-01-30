@@ -48,6 +48,9 @@
 @synthesize sessionsMenuSeparator;
 @synthesize sessionsMenuClearItem;
 @synthesize sessionsMenuItems;
+@synthesize namePanel;
+@synthesize nameField;
+@synthesize startNamed;
 
 #pragma mark Timer
 
@@ -145,10 +148,13 @@
 - (void)reset
 {
     hours = minutes = seconds = 0;
+	[name release];
+	name = @"";
     
     [self stopWithNotification:NO];
     [resetItem setEnabled:NO];
     [startStopItem setTitle:@"Start"];
+	[startNamed setEnabled:YES];
 }
 
 - (void)clearSessionsFromMenu
@@ -185,7 +191,7 @@
 {
     if (seconds > 0 || minutes > 0 || hours > 0)
     {
-        Session *session = [Session sessionWithSeconds:seconds minutes:minutes hours:hours];
+        Session *session = [Session sessionWithSeconds:seconds minutes:minutes hours:hours name:name];
         [self saveAction:self];
         [self addSessionToMenu:session];
     }
@@ -195,10 +201,11 @@
 
 - (IBAction)startStop:(id)sender
 {
-    if (!isTicking)
+    if (!isTicking) {
         [self startWithNotification:NO];
-    else 
-        [self stopWithNotification:NO];
+	} else {
+		[self stopWithNotification:NO];
+	}
 }
 
 - (IBAction)reset:(id)sender
@@ -215,6 +222,24 @@
     [self saveAction:self];
     
     [self clearSessionsFromMenu];
+}
+
+- (IBAction)startNamed:(id)sender
+{
+	name = [[nameField stringValue] copy];
+	[name retain];
+	
+	[nameField setStringValue:@""];
+	[namePanel close];
+	
+	[startNamed setEnabled:NO];
+	
+	[self startWithNotification:NO];
+}
+
+- (IBAction)showNamePanel:(id)sender
+{
+	[namePanel makeKeyAndOrderFront:self];
 }
 
 #pragma mark Keyboard Events
