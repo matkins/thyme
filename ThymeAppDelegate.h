@@ -73,5 +73,5 @@
 - (IBAction)reset:(id)sender;
 - (IBAction)startNamed:(id)sender;
 - (IBAction)showNamePanel:(id)sender;
-
+- (IBAction)nameFieldKeyDown:(id)sender;
 @end

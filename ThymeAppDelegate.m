@@ -32,6 +32,8 @@
 - (IBAction)clear:(id)sender;
 - (void)clearSessionsFromMenu;
 - (void)addSessionToMenu:(Session*)session;
+
+- (void)startNamedTask;
 @end
 
 
@@ -225,6 +227,21 @@
 
 - (IBAction)startNamed:(id)sender
 {
+	[self startNamedTask];
+}
+
+- (IBAction)showNamePanel:(id)sender
+{
+	[namePanel makeKeyAndOrderFront:self];
+}
+
+- (IBAction)nameFieldKeyDown:(id)sender
+{
+	[self startNamedTask];
+}
+	 
+- (void)startNamedTask
+{
 	name = [[nameField stringValue] copy];
 	[name retain];
 	
@@ -233,12 +250,6 @@
 	
 	[self startWithNotification:NO];
 }
-
-- (IBAction)showNamePanel:(id)sender
-{
-	[namePanel makeKeyAndOrderFront:self];
-}
-
 #pragma mark Keyboard Events
 
 - (void)keyPressed
